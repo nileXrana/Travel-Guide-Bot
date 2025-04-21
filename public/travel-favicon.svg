@@ -1,0 +1,20 @@
+
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blue background circle (globe) -->
+  <circle cx="256" cy="256" r="204.8" fill="#2196F3" />
+  
+  <!-- Longitude/latitude lines -->
+  <path d="M 51.19999999999999 256 A 204.8 204.8 0 0 1 460.8 256" stroke="white" stroke-width="4" fill="none" />
+  <path d="M 51.19999999999999 256 A 204.8 204.8 0 0 0 460.8 256" stroke="white" stroke-width="4" fill="none" />
+  <path d="M 256 51.19999999999999 A 204.8 204.8 0 0 1 256 460.8" stroke="white" stroke-width="4" fill="none" />
+  <path d="M 256 51.19999999999999 A 204.8 204.8 0 0 0 256 460.8" stroke="white" stroke-width="4" fill="none" />
+  
+  <!-- Airplane silhouette -->
+  <path d="M 133.12 194.56 
+           L 378.88 235.51999999999998
+           L 358.4 256
+           L 378.88 276.48
+           L 133.12 317.44
+           L 174.07999999999998 256
+           Z" fill="#FF5722" />
+</svg>
