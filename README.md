@@ -1,69 +1,85 @@
-# Travel Assistant Chatbot
+# Travel Assistant
 
-A simple travel assistance chatbot web app built with Next.js and Tailwind CSS.
+A modern travel assistance chatbot built with Next.js and Tailwind CSS. This application provides travel information, destination recommendations, and trip planning guidance using Google's Gemini API.
+
+![Travel Assistant Screenshot](https://via.placeholder.com/800x400?text=Travel+Assistant+Screenshot)
 
 ## Features
 
-- Chat interface with user input and assistant response bubbles
-- Travel destination input with autocomplete suggestions
-- Dark/light mode toggle
-- Loading animation while waiting for responses
-- Chat history stored in React state
-- Option to clear chat
+- 🌍 Travel destination recommendations
+- 🏨 Accommodation advice and tips
+- 🍽️ Local cuisine and dining suggestions
+- 🔍 Interactive chat interface
+- 🌓 Dark/light mode toggle
+- 📱 Fully responsive design
+- 🔎 Location search with suggestions
+- 🔄 Chat history management
 
-## Technology Stack
+## Technologies Used
 
-- Next.js with App Router
-- TypeScript
-- Tailwind CSS
-- OpenAI GPT-3.5 API (with mock API fallback)
+- **Next.js** - React framework
+- **Tailwind CSS** - Utility-first CSS framework
+- **Google Gemini API** - AI chat model
+- **TypeScript** - Type safety
+- **React Context API** - State management
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v14 or later)
+- Node.js 14.x or later
 - npm or yarn
 
 ### Installation
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/travel-assistance.git
-cd travel-assistance
-```
+1. Clone the repository
+   ```bash
+   git clone https://github.com/yourusername/travel-assistant.git
+   cd travel-assistant
+   ```
 
-2. Install dependencies:
+2. Install dependencies
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Create a `.env.local` file in the root directory with your Gemini API key:
+   ```
+   NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
+   ```
+
+4. Start the development server
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## API Configuration
+
+To use the Google Gemini API:
+1. Visit [Google AI Studio](https://ai.google.dev/)
+2. Create an API key
+3. Add it to your `.env.local` file
+
+## Deployment
+
+This application can be deployed on Vercel, Netlify, or any other platform that supports Next.js applications.
+
 ```bash
-npm install
+npm run build
 # or
-yarn install
+yarn build
 ```
 
-3. Create a `.env.local` file in the root directory and add your OpenAI API key:
-```
-NEXT_PUBLIC_OPENAI_API_KEY=your_api_key_here
-```
+## Contributing
 
-> Note: If you don't provide an API key, the app will use mock responses for development.
-
-4. Start the development server:
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Usage
-
-1. Enter a travel destination in the location input field or select from suggestions
-2. Type your travel-related questions in the chat input
-3. Get instant responses about destinations, tips, local food, etc.
-4. Toggle between dark and light mode using the button in the navigation bar
-5. Clear chat history with the "Clear Chat" button
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT 
+This project is licensed under the MIT License - see the LICENSE file for details. 
