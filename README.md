@@ -2,8 +2,6 @@
 
 A modern travel assistance chatbot built with Next.js and Tailwind CSS. This application provides travel information, destination recommendations, and trip planning guidance using Google's Gemini API.
 
-![Travel Assistant Screenshot](https://via.placeholder.com/800x400?text=Travel+Assistant+Screenshot)
-
 ## Features
 
 - 🌍 Travel destination recommendations
