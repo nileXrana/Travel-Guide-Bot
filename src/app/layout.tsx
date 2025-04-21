@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Travel Assistant',
   description: 'Your personal travel assistant chatbot',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
