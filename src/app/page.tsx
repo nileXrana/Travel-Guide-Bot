@@ -34,7 +34,7 @@ export default function Home() {
             
             {/* Footer */}
             <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-              <p>© {new Date().getFullYear()} Travel Assistant • Powered by Next.js & OpenAI</p>
+              <p>© {new Date().getFullYear()} Travel Assistant </p>
             </div>
           </div>
         </main>
