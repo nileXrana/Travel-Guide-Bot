@@ -151,7 +151,7 @@ export default function ChatInterface() {
               <p className="text-sm whitespace-pre-line">
                 {message.role === 'assistant' && index === 0 ? (
                   <>
-                    <span className="block text-blue-500 dark:text-blue-400 font-medium text-base mb-1">Welcome to Travel Assistant! 👋</span>
+                    <span className="block text-blue-600 dark:text-blue-400 font-medium text-base mb-1">Welcome to Travel Assistant! 👋</span>
                     {message.content}
                   </>
                 ) : (
