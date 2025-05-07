@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatInterface from '@/components/ChatInterface';
+import LocationInput from '@/components/LocationInput';
 import { ThemeProvider } from '@/components/ThemeContext';
 
 export default function Home() {
@@ -26,13 +27,14 @@ export default function Home() {
             {/* Main App */}
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden backdrop-blur-sm">
               <div className="p-5 md:p-8">
+                <LocationInput />
                 <ChatInterface />
               </div>
             </div>
             
             {/* Footer */}
             <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-              <p>© {new Date().getFullYear()} Travel Assistant by <a href="https://www.linkedin.com/in/nilexrana/"><b className='underline transition-all hover:text-xl text-blue-500'>nileXrana</b></a></p>
+              <p>© {new Date().getFullYear()} Travel Assistant </p>
             </div>
           </div>
         </main>

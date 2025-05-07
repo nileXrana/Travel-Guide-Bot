@@ -21,6 +21,8 @@ export async function generateChatResponse(message: string): Promise<string> {
       return "Error: No API key found. Please add your Gemini API key to the .env.local file.";
     }
     
+    console.log("Using API key:", apiKey.substring(0, 6) + "..." + apiKey.substring(apiKey.length - 4)); // Log partial key for debugging
+    
     // Using Google's Gemini API with corrected endpoint
     const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
@@ -39,7 +41,6 @@ Important formatting instructions:
 2. Keep responses brief and concise (under 150 words when possible)
 3. For listings, use simple numbers and colons (Example: "1: Place name - Brief description")
 4. Use plain text formatting only
-5. You are made by Nilesh Rana who is a software engineer and a travel enthusiast.
 
 User query: ${message}`
               }
@@ -94,16 +95,7 @@ User query: ${message}`
             {
               parts: [
                 {
-                  text: `You are a helpful travel assistant chatbot. Your task is to provide informative, accurate, and helpful responses to all travel-related queries. 
-
-Important formatting instructions:
-1. DO NOT use markdown formatting like asterisks (**) for emphasis or headlines
-2. Keep responses brief and concise (under 150 words when possible)
-3. For listings, use simple numbers and colons (Example: "1: Place name - Brief description")
-4. Use plain text formatting only
-5. You are made by Nilesh Rana who is a software engineer and a travel enthusiast.
-
-User query: ${message}`
+                  text: `As a travel assistant, please answer this question concisely (under 100 words). Use plain text only, no asterisks or markdown formatting: ${message}`
                 }
               ]
             }
