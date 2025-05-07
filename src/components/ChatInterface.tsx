@@ -10,6 +10,53 @@ type Message = {
   timestamp: Date;
 };
 
+// Speech button component
+function SpeechButton({ text }: { text: string }) {
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const speechSynthesis = window.speechSynthesis;
+
+  const handleSpeech = () => {
+    if (isSpeaking) {
+      speechSynthesis.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+
+    speechSynthesis.speak(utterance);
+    setIsSpeaking(true);
+  };
+
+  return (
+    <button
+      onClick={handleSpeech}
+      className={`ml-2 p-1 rounded-full transition-colors ${
+        isSpeaking
+          ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300'
+          : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+      }`}
+      title={isSpeaking ? 'Stop reading' : 'Read aloud'}
+    >
+      {isSpeaking ? (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clipRule="evenodd" />
+        </svg>
+      ) : (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clipRule="evenodd" />
+        </svg>
+      )}
+    </button>
+  );
+}
+
 export default function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -136,7 +183,7 @@ export default function ChatInterface() {
             {message.role === 'assistant' && index > 0 && (
               <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center mr-2 shadow-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-white">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
                 </svg>
               </div>
             )}
@@ -148,16 +195,21 @@ export default function ChatInterface() {
                   : 'chat-bubble-assistant rounded-tl-none'
               }`}
             >
-              <p className="text-sm whitespace-pre-line">
-                {message.role === 'assistant' && index === 0 ? (
-                  <>
-                    <span className="block text-blue-600 dark:text-blue-400 font-medium text-base mb-1">Welcome to Travel Assistant! 👋</span>
-                    {message.content}
-                  </>
-                ) : (
-                  message.content
+              <div className="flex items-start">
+                <p className="text-sm whitespace-pre-line flex-1">
+                  {message.role === 'assistant' && index === 0 ? (
+                    <>
+                      <span className="block text-blue-600 dark:text-blue-400 font-medium text-base mb-1">Welcome to Travel Assistant! 👋</span>
+                      {message.content}
+                    </>
+                  ) : (
+                    message.content
+                  )}
+                </p>
+                {message.role === 'assistant' && (
+                  <SpeechButton text={message.content} />
                 )}
-              </p>
+              </div>
               {mounted && (
                 <p className="text-xs opacity-70 mt-1 flex items-center justify-end">
                   {formatTime(message.timestamp)}
