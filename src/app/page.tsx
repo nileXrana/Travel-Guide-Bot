@@ -33,7 +33,7 @@ export default function Home() {
             
             {/* Footer */}
             <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-              <p>© {new Date().getFullYear()} Travel Assistant </p>
+              <p>© {new Date().getFullYear()} Travel Assistant by <a href="https://www.linkedin.com/in/nilexrana/" className='underline hover:text-2xl transition-all'><b className='text-blue-500'>nileXrana</b></a></p>
             </div>
           </div>
         </main>
