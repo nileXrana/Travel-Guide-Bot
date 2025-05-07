@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatInterface from '@/components/ChatInterface';
-import LocationInput from '@/components/LocationInput';
 import { ThemeProvider } from '@/components/ThemeContext';
 
 export default function Home() {
@@ -27,7 +26,7 @@ export default function Home() {
             {/* Main App */}
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden backdrop-blur-sm">
               <div className="p-5 md:p-8">
-                <LocationInput />
+              
                 <ChatInterface />
               </div>
             </div>
