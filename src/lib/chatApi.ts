@@ -23,8 +23,8 @@ export async function generateChatResponse(message: string): Promise<string> {
     
     console.log("Using API key:", apiKey.substring(0, 6) + "..." + apiKey.substring(apiKey.length - 4)); // Log partial key for debugging
     
-    // Using Google's Gemini API with corrected endpoint
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+    // Using Google's Gemini API with v1beta endpoint for Gemini 2.5
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -64,7 +64,13 @@ User query: ${message}`
     }
 
     const data = await response.json();
-    console.log("API response received:", !!data); // Log that we got a response
+    console.log("API response received:", JSON.stringify(data, null, 2)); // Log full response for debugging
+    
+    // Check for error in response
+    if (data.error) {
+      console.error('Gemini API returned error:', data.error);
+      throw new Error(`Gemini API error: ${data.error.message || JSON.stringify(data.error)}`);
+    }
     
     if (data.candidates && 
         data.candidates[0] && 
@@ -74,7 +80,7 @@ User query: ${message}`
         data.candidates[0].content.parts[0].text) {
       return data.candidates[0].content.parts[0].text;
     } else {
-      console.error('Unexpected Gemini API response format:', JSON.stringify(data));
+      console.error('Unexpected Gemini API response format:', JSON.stringify(data, null, 2));
       throw new Error('Unexpected Gemini API response format');
     }
         
@@ -86,7 +92,7 @@ User query: ${message}`
       console.log("Trying alternative Gemini model...");
       const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
       
-      const backupResponse = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`, {
+      const backupResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -124,7 +130,13 @@ User query: ${message}`
       }
 
       const backupData = await backupResponse.json();
-      console.log("Backup API response received:", !!backupData);
+      console.log("Backup API response received:", JSON.stringify(backupData, null, 2));
+      
+      // Check for error in backup response
+      if (backupData.error) {
+        console.error('Backup Gemini API returned error:', backupData.error);
+        throw new Error(`Backup Gemini API error: ${backupData.error.message || JSON.stringify(backupData.error)}`);
+      }
       
       if (backupData.candidates && 
           backupData.candidates[0] && 
